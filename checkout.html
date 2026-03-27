@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оплата заказа | CyberCore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+<body>
+    <nav class="mui-nav">
+        <div class="logo">CyberCore | Оплата</div>
+    </nav>
+
+    <main class="container" style="max-width: 500px;">
+        <div class="mui-card" style="text-align: center;">
+            <h2 style="justify-content: center;"><span class="material-symbols-rounded">shield_lock</span>НЕБезопасная оплата</h2>
+            
+            <div id="payment-info" style="margin: 20px 0; padding: 15px; background: #e8def8; border-radius: 15px;">
+                <p>Сумма к оплате:</p>
+                <h1 id="pay-total" style="color: #6750A4;">0 ₽</h1>
+            </div>
+
+            <div style="display: grid; gap: 15px; text-align: left;">
+    <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" class="mui-btn" 
+           style="background: white; color: black; text-transform: none; border: 1px solid #79747e;">
+    
+    <div style="display: flex; gap: 10px;">
+        <input type="text" id="card-expiry" placeholder="ММ/ГГ" maxlength="4" class="mui-btn" 
+               style="background: white; color: black; text-transform: none; border: 1px solid #79747e;">
+        
+        <input type="password" id="card-cvc" placeholder="CVV" maxlength="3" class="mui-btn" 
+               style="background: white; color: black; text-transform: none; border: 1px solid #79747e;">
+    </div>
+    <button class="mui-btn" onclick="confirmPayment()" id="pay-button">Оплатить сейчас</button>
+                <a href="cart.html" style="text-align: center; color: #79747e; text-decoration: none; font-size: 0.9rem;">Вернуться в корзину</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    // Считаем сумму при загрузке (оставляем твою логику)
+    window.onload = function() {
+        const data = JSON.parse(localStorage.getItem('my_pc_cart')) || [];
+        const total = data.reduce((sum, item) => {
+            const price = parseInt(item.total.toString().replace(/\s/g, '')) || 0;
+            return sum + price;
+        }, 0);
+        document.getElementById('pay-total').innerText = total.toLocaleString('ru-RU') + " ₽";
+    };
+    function confirmPayment() {
+        // Находим кнопку
+        const btn = document.getElementById('pay-button');
+        
+        // Визуальный отклик: меняем текст и блокируем кнопку
+        btn.innerText = "Обработка платежа...";
+        btn.disabled = true;
+        btn.style.opacity = "0.7";
+        btn.style.cursor = "not-allowed";
+
+        // Имитируем задержку банковской операции (2 секунды)
+        setTimeout(() => {
+            // Спрашиваем пользователя об отзыве
+            const leaveReview = confirm("Оплата прошла успешно! Ваш заказ CyberCore принят в работу. \n\nХотите оставить отзыв о нашей системе подбора?");
+            
+            // Очищаем корзину после успешной покупки
+            localStorage.removeItem('my_pc_cart');
+
+            if (leaveReview) {
+                // Перенаправляем на главную к секции отзывов
+                window.location.href = "index.html#reviews";
+            } else {
+                // Просто возвращаемся на главную
+                window.location.href = "index.html";
+            }
+        }, 2000);
+    }
+</script>
+</body>
+</html>

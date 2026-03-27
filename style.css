@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=material+symbols+rounded');
+html {
+    scroll-behavior: smooth;
+}
+:root {
+    --primary: #6750A4;       /* Фиолетовый MD3 */
+    --on-primary: #ffffff;
+    --surface: #fef7ff;       /* Светлый фон */
+    --container: #f3edf7;     /* Фон карточек */
+    --outline: #79747e;
+    --radius: 28px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+
+body { background: var(--surface); color: #6C53A4; line-height: 1.6; }
+
+/* Навигация (Glassmorphism) */
+.mui-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 8%; background: rgba(254, 247, 255, 0.8);
+    backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 100;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.logo { font-weight: 700; font-size: 1.2rem; color: var(--primary); letter-spacing: 1px; }
+
+.nav-links { display: flex; list-style: none; gap: 10px; }
+.nav-links a { 
+    text-decoration: none; color: #49454f; font-weight: 500; 
+    padding: 10px 20px; border-radius: 20px; transition: 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { background: #e8def8; color: #1d192b; }
+
+/* Контейнеры */
+.container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+.mui-card {
+    background: var(--container); border-radius: var(--radius);
+    padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Иконки Material Symbols */
+.material-symbols-rounded {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle; margin-right: 8px; color: var(--primary);
+}
+
+h1, h2 { margin-bottom: 20px; display: flex; align-items: center; }
+
+/* Элементы управления */
+select, .mui-btn {
+    width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--outline);
+    background: white; font-size: 1rem; outline: none; transition: 0.3s; border-color: #6750A4;
+}
+
+.mui-btn {
+    background: var(--primary); color: white; border: none;
+    font-weight: 500; text-transform: uppercase; cursor: pointer;
+}
+
+.mui-btn:hover { box-shadow: 0 4px 12px rgba(103, 80, 164, 0.3); opacity: 0.9; }
+
+/* Футер */
+footer { text-align: center; padding: 20px; font-size: 0.9rem; color: var(--outline); }
+.work-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+/* Эффект для кнопки удаления с твоей картинкой */
+.mui-card button img:hover {
+    filter: brightness(1.2) drop-shadow(0 0 5px rgba(234, 67, 53, 0.5));
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.wiki-item {
+    animation: fadeIn 0.5s ease backwards;
+}
+/* --- Блок отзывов на главной --- */
+.reviews-section {
+    margin-top: 50px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 28px;
+    border: 1px solid #e8def8;
+}
+
+.add-review-box {
+    background: #f3edf7;
+    padding: 25px;
+    border-radius: 20px;
+    margin: 20px 0 30px 0;
+}
+
+.rev-input, .rev-textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #79747e;
+    margin-bottom: 12px;
+    font-family: inherit;
+    box-sizing: border-box; /* Чтобы паддинги не раздували ширину */
+}
+
+.star-btn {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 30px;
+    transition: 0.2s;
+    user-select: none;
+}
+
+.star-btn.active {
+    color: #FFB400;
+}
+
+.review-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid #e8def8;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.review-card:hover {
+    box-shadow: 0 8px 20px rgba(103, 80, 164, 0.1);
+}
+
+.star-rating {
+    color: #FFB400;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+@keyframes highlight-pulse {
+    0% { box-shadow: 0 0 0 0px rgba(103, 80, 164, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(103, 80, 164, 0); }
+    100% { box-shadow: 0 0 0 0px rgba(103, 80, 164, 0); }
+}
+
+.highlight-review {
+    animation: highlight-pulse 2s ease-out 3; /* Пульсирует 3 раза */
+    border: 2px solid #6750A4 !important;
+}
+/* Контейнер для текста истории */
+.history-text p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #49454f;
+}
+
+.projects-grid {
+    display: grid;
+    /* Создаем ровно 2 колонки одинаковой ширины */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Адаптивность: на мобилках (экран меньше 768px) переключаем в 1 колонку */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-item {
+    background: #fff;
+    border-radius: 24px;
+    border: 1px solid #e8def8;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Чтобы все карточки были одной высоты */
+}
+
+.project-image {
+    height: 250px; /* Фиксированная высота для картинок */
+    width: 100%;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.project-item:hover .project-image img {
+    transform: scale(1.1); /* Эффект приближения при наведении */
+}
+
+/* Текст внутри карточки */
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3 {
+    margin: 0 0 10px 0;
+    color: #1c1b1f;
+    font-size: 1.25rem;
+}
+
+.project-info p {
+    margin: 0;
+    color: #49454f;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}

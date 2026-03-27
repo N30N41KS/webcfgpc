@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CyberCore | Главная</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+<body>
+    <nav class="mui-nav">
+        <div class="logo">CyberCore</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">О нашей компании</a></li>
+            <li><a href="config.html">Подбор</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="wiki.html">Знания</a></li>
+            <li><a href="cart.html">Корзина</a></li>
+        </ul>
+    </nav>
+<main class="container">
+    
+   <div class="mui-card">
+    <h2><span class="material-symbols-rounded">history_edu</span> Наша история</h2>
+    <div class="history-text">
+        <p>Все началось не в сверкающем офисе, а в обычном гараже, пропитанном запахом канифоли и свежего текстолита. В 2018 году команда энтузиастов, объединенных одной идеей — создавать компьютеры, которые не просто работают, а вдохновляют...</p>
+        <p>Мир стремительно изменился, когда спрос на мощное железо взлетел до небес, и именно в этот период мы официально обрели имя — CyberCore. Мы осознали, что компьютер перестал быть просто инструментом...</p>
+    </div>
+</div>
+
+<div class="mui-card">
+    <h2><span class="material-symbols-rounded">rocket_launch</span> Наши работы</h2>
+    <div class="projects-grid">
+        
+        <div class="project-item">
+            <div class="project-image"><img src="images/soviet.jpg" alt="Soviet"></div>
+            <div class="project-info">
+                <h3>Проект Soviet</h3>
+                <p>AMD R5 5600X, RTX 4060TI. Максимальная мощь в советском исполнении.</p>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-image"><img src="images/rx580.jpg" alt="RX580"></div>
+            <div class="project-info">
+                <h3>Проект GTX950</h3>
+                <p>Тихая видеокарта для работы со звуком и видео.</p>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-image"><img src="images/x577.jpg" alt="X577"></div>
+            <div class="project-info">
+                <h3>Проект X577</h3>
+                <p>Тихая система для работы и не требовательных игр.</p>
+            </div>
+        </div>
+
+        <div class="project-item">
+            <div class="project-image"><img src="images/neon.jpg" alt="Neon"></div>
+            <div class="project-info">
+                <h3>Neon Night</h3>
+                <p>Яркий дизайн с адресной RGB-подсветкой и гравировкой.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+        </main>
+        </section>
+    </main>
+    <script src="script.js"></script>
+    <main class="container">
+    <section class="reviews-section">
+        <h2><span class="material-symbols-rounded">forum</span> Что говорят о CyberCore</h2>
+        
+        <div class="add-review-box">
+            <h4 style="margin-top:0; color:#6750A4">Оставить свой отзыв</h4>
+            <input type="text" id="userName" class="rev-input" placeholder="Ваше имя">
+            
+            <div id="starSelector" style="margin-bottom: 15px;">
+                <span class="material-symbols-rounded star-btn" data-value="1">star</span>
+                <span class="material-symbols-rounded star-btn" data-value="2">star</span>
+                <span class="material-symbols-rounded star-btn" data-value="3">star</span>
+                <span class="material-symbols-rounded star-btn" data-value="4">star</span>
+                <span class="material-symbols-rounded star-btn" data-value="5">star</span>
+            </div>
+
+            <textarea id="userText" class="rev-textarea" placeholder="Поделитесь впечатлениями..."></textarea>
+            <button class="mui-btn" onclick="saveReview()">Опубликовать</button>
+        </div>
+
+        <div id="reviewsContainer">
+            </div>
+    </section>
+</main>
+
+<script>
+    let currentRating = 0;
+    const stars = document.querySelectorAll('#starSelector .star-btn');
+
+    // Логика выбора звезд
+    stars.forEach(star => {
+        star.onclick = () => {
+            currentRating = star.dataset.value;
+            stars.forEach(s => s.classList.toggle('active', s.dataset.value <= currentRating));
+        };
+    });
+
+    // Функция отображения
+    function renderReviews() {
+        const container = document.getElementById('reviewsContainer');
+        const saved = JSON.parse(localStorage.getItem('cc_reviews')) || [
+            { name: "Дамир", rating: 5, text: "Собрал свой первый ПК здесь. Конфигуратор не дал ошибиться с сокетом!" },
+            { name: "Артем", rating: 5, text: "Лучший сервис для подбора железа. Всё интуитивно понятно." },
+            { name: "Егор", rating: 5, text: "Собрал свой ПК здесь. Лучше компаний не видел!" }
+        ];
+        
+        container.innerHTML = saved.map(rev => `
+            <div class="review-card">
+                <div class="star-rating">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</div>
+                <strong style="color:#6750A4">${rev.name}</strong>
+                <p style="margin: 8px 0 0; color: #49454f; line-height:1.4;">${rev.text}</p>
+            </div>
+        `).reverse().join(''); // Новые отзывы будут сверху
+    }
+
+    // Функция сохранения
+    function saveReview() {
+        const nameInput = document.getElementById('userName');
+        const textInput = document.getElementById('userText');
+
+        if (!nameInput.value || !textInput.value || currentRating == 0) {
+            alert("Заполните имя, текст и выберите рейтинг!");
+            return;
+        }
+
+        const reviews = JSON.parse(localStorage.getItem('cc_reviews')) || [];
+        reviews.push({ 
+            name: nameInput.value, 
+            rating: parseInt(currentRating), 
+            text: textInput.value 
+        });
+        
+        localStorage.setItem('cc_reviews', JSON.stringify(reviews));
+
+        // Очистка
+        nameInput.value = "";
+        textInput.value = "";
+        currentRating = 0;
+        stars.forEach(s => s.classList.remove('active'));
+        
+        renderReviews();
+    }
+
+    // Запуск при загрузке
+    renderReviews();
+    // Проверка: если пришли по ссылке для отзыва
+window.addEventListener('load', () => {
+    if (window.location.hash === '#reviews') {
+        const reviewBox = document.querySelector('.add-review-box');
+        if (reviewBox) {
+            // Добавляем класс подсветки
+            reviewBox.classList.add('highlight-review');
+            
+            // Ставим курсор в поле имени
+            document.getElementById('userName').focus();
+            
+            // Убираем подсветку через 6 секунд
+            setTimeout(() => {
+                reviewBox.classList.remove('highlight-review');
+            }, 6000);
+        }
+    }
+});
+</script>
+</body>
+</html>

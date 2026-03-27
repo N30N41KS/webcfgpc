@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои сборки | CyberCore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+<body>
+    <nav class="mui-nav">
+        <div class="logo">CyberCore</div>
+        <ul class="nav-links">
+            <li><a href="index.html">О нашей компании</a></li>
+            <li><a href="config.html">Подбор</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="wiki.html">Знания</a></li>
+            <li><a href="cart.html" class="active">Корзина</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+    <div class="mui-card">
+        <h2><span class="material-symbols-rounded">shopping_basket</span>Корзина</h2>
+        <div id="cart-content" style="margin-top: 20px;"></div>
+        <button class="mui-btn" style="margin-top: 20px; background: #6750A4;" onclick="processOrder()">
+    <span class="material-symbols-rounded" style="color: white; vertical-align: middle;">credit_card</span> 
+    Оформить заказ
+</button>
+    </div>
+</main>
+<script>
+    function renderCart() {
+        const container = document.getElementById('cart-content');
+        const data = JSON.parse(localStorage.getItem('my_pc_cart')) || [];
+
+        if (data.length === 0) {
+            container.innerHTML = "<p>Ваша корзина пока пуста. Соберите свой ПК в конфигураторе!</p>";
+            return;
+        }
+
+        const totalSum = data.reduce((sum, item) => {
+          
+            const price = parseInt(item.total.toString().replace(/\s/g, '')) || 0;
+            return sum + price;
+        }, 0);
+
+        const cardsHTML = data.map((item, index) => {
+            const check = (label, value) => {
+    if (!value || value.includes("Выберите")) return ""; 
+    const cleanValue = value.split('—')[0].trim();
+    
+    return `<p style="margin: 5px 0;"><strong>${label}:</strong> ${cleanValue}</p>`;
+};
+            return `
+            <div style="background: white; border-radius: 15px; padding: 20px; margin-bottom: 15px; border: 1px solid #e8def8; position: relative;">
+                <button onclick="removeItem(${index})" style="position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; padding: 0;">
+                    <img src="images/ico.png" alt="Удалить" style="width: 24px; height: 24px; display: block;">   
+                </button>
+                <div style="margin-top: 10px; font-size: 1.1rem;">
+                    ${check("Процессор", item.cpu)}
+                    ${check("Видеокарта", item.gpu)}
+                    ${check("ОЗУ", item.ram)}
+                    ${check("Материнская плата", item.mother)}
+                    ${check("БП", item.psu)}
+                    ${check("Корпус", item.case)}
+                    ${check("Кулер/СЖО", item.cool)}
+                </div>
+                <h3 style="color: #6750A4; margin-top: 10px; border-top: 1px solid #f3edf7; padding-top: 10px;">Цена: ${item.total} ₽</h3>
+            </div>
+            `;
+        }).join('');
+
+        container.innerHTML = `
+            ${cardsHTML}
+            <div style="background: #EADDFF; padding: 20px 30px; border-radius: 20px; margin-top: 25px; display: flex; justify-content: space-between; align-items: center;">
+                <p style="color: #6750A4; margin: 0; font-size: 1.2rem; font-weight: 500;">Итого:</p>
+                <h2 style="color: #6750A4; margin: 0; font-size: 2rem;">${totalSum.toLocaleString('ru-RU')} ₽</h2>
+            </div>
+        `;
+    }
+
+    function removeItem(index) {
+        let data = JSON.parse(localStorage.getItem('my_pc_cart')) || [];
+        data.splice(index, 1);
+        localStorage.setItem('my_pc_cart', JSON.stringify(data));
+        renderCart();
+    }
+function processOrder() {
+    const data = JSON.parse(localStorage.getItem('my_pc_cart')) || [];
+    if (data.length === 0) {
+        alert("Корзина пуста!");
+        return;
+    }
+    window.location.href = "checkout.html";
+}
+    window.onload = renderCart;
+</script>
+</body>
+</html>

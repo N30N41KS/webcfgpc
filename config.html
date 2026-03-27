@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подбор | CyberCore</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+<body>
+    <nav class="mui-nav">
+        <div class="logo">CyberCore</div>
+        <ul class="nav-links">
+            <li><a href="index.html">О нашей компании</a></li>
+            <li><a href="config.html" class="active">Подбор</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="wiki.html">Знания</a></li>
+            <li><a href="cart.html">Корзина</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="mui-card">
+            <h2 style="color:#6C53A4"><span class="material-symbols-rounded">rebase_edit</span> Конфигуратор </h2>
+            <div style="display: grid; gap: 15px;">
+                <select id="cpu" onchange="calculate()" style="color:#6C53A4">
+                    <option value="0"disabled selected>Выберите Процессор</option>
+                    <option value="48000">Intel Core i9-14900K - 48 000 ₽</option>
+                    <option value="34000">AMD Ryzen 7 7800X3D - 34 000 ₽</option>
+                </select>
+                <select id="gpu" onchange="calculate()"style="color:#6C53A4">
+                    <option value="0" disabled selected>Выберите Видеокарту</option>
+                    <option value="200000">NVIDIA RTX 4090 - 200 000 ₽</option>
+                    <option value="82000">NVIDIA RTX 4070 Ti - 82 000 ₽</option>
+                </select>
+                <select id="ram" onchange="calculate()"style="color:#6C53A4">
+                    <option value="0"disabled selected>Выберите Оперативную память</option>
+                    <option value="19900">Kingston Fury Beast Black DDR4 2x8ГБ 3200МГц - 19 900 ₽</option>
+                    <option value="47990">Patriot Viper Xtreme 5 DDR5 2x16ГБ 6000МГц - 47 990 ₽</option>
+                </select>
+                <select id="mother" onchange="calculate()"style="color:#6C53A4">
+                    <option value="0"disabled selected>Выберите Материнскую плату</option>
+                    <option value="22500">MSI MAG Z790 TOMAHAWK WIFI - 22 500 ₽</option>
+                    <option value="15000">GIGABYTE B850M DS3H - 15 000 ₽</option>
+                </select>
+                <select id="psu" onchange="calculate()"style="color:#6C53A4">
+                    <option value="0"disabled selected>Выберите БП</option>
+                    <option value="6000">Deepcool PF750 - 6 000 ₽</option>
+                    <option value="13000">Aerocool KCAS PLUS 1000Вт - 13 000 ₽</option>
+                </select>
+                <select id="case" onchange="calculate()"style="color:#6C53A4">
+                    <option value="0"disabled selected>Выберите Корпус</option>
+                    <option value="8000">Lian LI Vector V100 - 8000 ₽</option>
+                    <option value="14000">Geometric Future Model 5 Black Gray - 14 000 ₽</option>
+                </select>
+                <select id="cool" onchange="calculate()"style="color:#6C53A4">
+                    <option value="0"disabled selected>Выберите Кулер/СЖО</option>
+                    <option value="3000">IDCooling SE224XTS ARGB BLACK - 3 000 ₽</option>
+                    <option value="14000">Arctic Liquid Freezer III Pro 280 A-RGB - 14 000 ₽</option>
+                </select>
+                <div style="background: #EADDFF; padding: 24px; border-radius: 20px; text-align: center;">
+                    <p style="color:#6C53A4">Итого к оплате:</p>
+                    <h1 style="color: var(--primary);"><span id="total">0</span> ₽</h1>
+                    <button class="mui-btn" onclick="addToCart()">
+                        <span class="material-symbols-rounded">shopping_cart</span> ДОБАВИТЬ В КОРЗИНУ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
